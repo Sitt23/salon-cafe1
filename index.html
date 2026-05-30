@@ -803,8 +803,8 @@
             { username: "staff01", name: "Hat", pass: "2222", role: "staff" }
         ];
 
-        let staffList = JSON.parse(localStorage.getItem('salon_cafe_users')) || defaultStaffList;
-        if(!localStorage.getItem('salon_cafe_users')) localStorage.setItem('salon_cafe_users', JSON.stringify(staffList));
+        let staffList = JSON.parse(localStorage.getItem('salon_cafe_users_v2')) || defaultStaffList;
+        if(!localStorage.getItem('salon_cafe_users_v2s')) localStorage.setItem('salon_cafe_users_v2', JSON.stringify(staffList));
 
         let currentUser = null;
         let cart = [];
@@ -816,7 +816,7 @@
         let selectedDessert = null;
         let modalDessertQty = 1;
 
-        let salesHistory = JSON.parse(localStorage.getItem('salon_cafe_sales')) || [];
+        let salesHistory = JSON.parse(localStorage.getItem('salon_cafe_users_v2')) || [];
 
         // ຟັງຊັນປ່ຽນພາສາ ແລະ ສະແດງຜົນຂໍ້ຄວາມໃນລະບົບ
         function applyLanguage() {
