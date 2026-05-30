@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Salon Cafe POS System</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --font-lao: 'Prasat OT', 'Noto Sans Lao', sans-serif;
+            --font-en: 'Times New Roman', Times, serif;
+            --primary-color: #495057;
+            --success-color: #40a759;
+            --info-color: #17a2b8;
+            --danger-color: #dc3545;
+            --warning-color: #fd7e14;
+            --light-bg: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            font-family: var(--font-lao);
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .en-text {
+            font-family: var(--font-en) !important;
+        }
+
+        /* RESPONSIVE LAYOUT SYSTEM */
+        .page {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* LOGIN PAGE */
+        .login-container {
+            max-width: 420px;
+            margin: 60px auto;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            font-family: var(--font-en);
+        }
+
+        .login-subtitle {
+            color: #adb5bd;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            border-color: #495057;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #495057;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background-color: #343a40;
+        }
+
+        /* MAIN APP INTERFACE */
+        .app-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #f1f3f5;
+            background: #ffffff;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .header-title-area {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .header-btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-sm {
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            width: auto;
+            border-radius: 8px;
+        }
+
+        .btn-lang {
+            background-color: #f1f3f5;
+            color: #333;
+            font-family: var(--font-en);
+            font-weight: bold;
+        }
+
+        .app-body {
+            display: flex;
+            flex-direction: row;
+            height: auto;
+            min-height: 70vh;
+        }
+
+        .menu-side {
+            flex: 1.7;
+            padding: 20px;
+            background: #fdfbf7;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            padding: 10px 18px;
+            border: 1px solid #dee2e6;
+            background: white;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .tab-btn.active {
+            background: #495057;
+            color: white;
+            border-color: #495057;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+        }
+
+        .menu-card {
+            background: white;
+            border: 1px solid #f1f3f5;
+            border-radius: 14px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .menu-icon { font-size: 2rem; margin-bottom: 8px; }
+        .menu-name { font-weight: 500; font-size: 0.95rem; margin-bottom: 5px; }
+        .menu-price { color: #6c757d; font-size: 0.9rem; font-family: var(--font-en); }
+
+        .cart-side {
+            flex: 1;
+            border-left: 1px solid #f1f3f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            min-width: 300px;
+        }
+
+        .cart-list {
+            max-height: 350px;
+            overflow-y: auto;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f8f9fa;
+            font-size: 0.95rem;
+        }
+
+        .cart-total {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: right;
+            margin: 15px 0;
+            color: #212529;
+        }
+
+        .checkout-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn-cash { background-color: #40a759; }
+        .btn-cash:hover { background-color: #328546; }
+        .btn-qr { background-color: #17a2b8; }
+        .btn-qr:hover { background-color: #117a8b; }
+        .btn-clear { background-color: #e0e0e0; color: #333; }
+
+        /* ADMIN SECTION */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .report-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #6c757d;
+        }
+
+        .report-card p { color: #868e96; font-size: 0.9rem; }
+        .report-card h3 { font-size: 1.5rem; margin-top: 5px; font-family: var(--font-en); }
+
+        .table-container {
+            padding: 0 20px 20px 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            min-width: 700px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th { background-color: #f8f9fa; font-weight: 600; }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .status-success { background: #d4edda; color: #155724; }
+        .status-void { background: #f8d7da; color: #721c24; }
+
+        .action-btns-flex { display: flex; gap: 5px; }
+        .btn-table { padding: 6px 10px; font-size: 0.8rem; width: auto; border-radius: 6px;}
+        .btn-void { background: #dc3545; }
+        .btn-delete { background: #fd7e14; }
+        .btn-edit { background: #007bff; }
+
+        /* MODAL POPUPS */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .modal-title { font-weight: 600; margin-bottom: 20px; font-size: 1.2rem; }
+
+        /* COUNTER STYLE */
+        .qty-counter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        .btn-qty {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #dee2e6;
+            background: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty-num { font-size: 1.2rem; font-weight: 600; min-width: 25px; text-align: center; font-family: var(--font-en); }
+
+        /* 🧾 ສ່ວນສະແດງຜົນໃບບິນ (Receipt Position Setup) */
+        .receipt-popup-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 360px;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            font-family: var(--font-lao);
+        }
+
+        /* ສ່ວນຫົວຂອງບິນ ໃຫ້ຢູ່ກົງກາງ */
+        .receipt-header-centered {
+            text-align: center !important;
+        }
+        .receipt-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        .receipt-subtitle {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-family: var(--font-en);
+            text-align: center;
+        }
+        .receipt-type-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .receipt-divider {
+            border-top: 1px dashed #adb5bd;
+            margin: 12px 0;
+            width: 100%;
+        }
+
+        /* ລາຍລະອຽດທົ່ວໄປຂອງບິນ ໃຫ້ຢູ່ດ້ານຊ້າຍ */
+        .receipt-info-line {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            color: #495057;
+            text-align: left;
+        }
+
+        /* 🔹 ສິນຄ້າ ແລະ ເມນູ: ບັງຄັບໃຫ້ຢູ່ດ້ານຊ້າຍ (Left-aligned) */
+        .receipt-item-line {
+            font-size: 0.95rem;
+            margin: 8px 0 2px 0;
+            font-weight: 600;
+            text-align: left !important;
+        }
+        .receipt-item-price {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 10px;
+            font-family: var(--font-en);
+            text-align: left !important;
+        }
+
+        /* 🔸 ຍອດລວມ, ເງິນຮັບ, ເງິນທອນ: ບັງຄັບໃຫ້ຢູ່ດ້ານຂວา (Right-aligned) */
+        .receipt-total-bold {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 15px 0;
+            text-align: right !important;
+        }
+        .receipt-money-right {
+            text-align: right !important;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+
+        @media print {
+            body * { visibility: hidden; }
+            #receiptPrintModal, #receiptPrintModal * { visibility: visible; }
+            #receiptPrintModal { position: absolute; left: 0; top: 0; width: 100%; background: white; box-shadow: none; padding: 0; }
+            .receipt-popup-content { box-shadow: none; max-width: 100%; padding: 0; }
+            .receipt-action-buttons { display: none !important; }
+        }
+
+        @media (max-width: 850px) {
+            body { padding: 0; }
+            .page { border-radius: 0; }
+            .app-body { flex-direction: column; }
+            .menu-side { border-bottom: 2px solid #f1f3f5; }
+            .cart-side { border-left: none; background: #fff; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loginPage" class="page active">
+        <div style="text-align: right; padding: 15px;">
+            <button class="btn btn-sm btn-lang" onclick="toggleLanguage()">LO / EN</button>
+        </div>
+        <div class="login-container">
+            <h1 class="login-title">SALON CAFE</h1>
+            <p class="login-subtitle" id="lng-login-sub">ລະບົບຈັດການຮ້ານຄາເຟ່ແບບມິນິມອນ</p>
+            
+            <div class="form-group">
+                <label id="lng-login-user-lbl">ຊື່ຜູ້ໃຊ້ / ລະຫັດພະນັກງານ (Username)</label>
+                <input type="text" id="username" class="form-control" placeholder="...">
+            </div>
+            <div class="form-group">
+                <label id="lng-login-pass-lbl">ລະຫັດຜ່ານ (Password)</label>
+                <input type="password" id="password" class="form-control" placeholder="...">
+            </div>
+            <button class="btn" id="lng-login-btn" onclick="handleLogin()">ເຂົ້າສູ່ລະບົບ</button>
+        </div>
+    </div>
+
+    <div id="orderPage" class="page">
+        <div class="app-header">
+            <div class="header-title-area">
+                <h2 style="font-weight:700; font-family: var(--font-en);">☕ SALON CAFE</h2>
+                <p style="font-size:0.9rem; color:#868e96;" id="userBadge">ຜູ້ລົງທະບຽນເຂົ້າໃຊ້: -</p>
+            </div>
+            <div class="header-btn-group">
+                <button class="btn btn-sm btn-lang" onclick="toggleLanguage()">LO / EN</button>
+                <button class="btn btn-sm" id="adminDashboardBtn" style="display:none; background:#6c757d;" onclick="showPage('adminPage')">ແດຊບອດຜູ້ຈັດການ</button>
+                <button class="btn btn-sm" style="background:#e0e0e0; color:#333;" id="lng-logout-btn" onclick="logout()">ອອກຈາກລະບົບ</button>
+            </div>
+        </div>
+        
+        <div class="app-body">
+            <div class="menu-side">
+                <div class="category-tabs">
+                    <button class="tab-btn active" id="lng-tab-drinks" onclick="switchCategory('drinks')">ເມນູເຄື່ອງດື່ມ</button>
+                    <button class="tab-btn" id="lng-tab-desserts" onclick="switchCategory('desserts')">ເມນູຂະໜົມຫວານ</button>
+                </div>
+                
+                <div id="drinksGrid" class="menu-grid"></div>
+                <div id="dessertsGrid" class="menu-grid" style="display:none;"></div>
+            </div>
+
+            <div class="cart-side">
+                <h3 style="font-weight:600; border-bottom:1px solid #f1f3f5; padding-bottom:10px;" id="lng-cart-title">ລາຍການອໍເດີ້ໃນບິນ</h3>
+                <div class="cart-list" id="cartList"></div>
+                <div>
+                    <div class="cart-total" id="cartTotal">ຍອດລວມ: <span class="en-text">0</span> ກີບ</div>
+                    <div class="checkout-buttons">
+                        <button class="btn btn-clear" id="lng-btn-clear" onclick="clearCart()">ລ້າງອໍເດີ້</button>
+                        <button class="btn btn-cash" id="lng-btn-cash" onclick="openCashModal()">💵 ຈ່າຍດ້ວຍເງິນສົດ</button>
+                        <button class="btn btn-qr" id="lng-btn-qr" onclick="processCheckout('QR Code', 0, 0)">📱 ສະແກນຈ່າຍ QR Code</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminPage" class="page">
+        <div class="app-header">
+            <div>
+                <h2 style="font-weight:700;" id="lng-admin-title">📊 ແຜງຄວບຄຸມຜູ້ຈັດການ (Admin)</h2>
+                <p style="font-size:0.9rem; color:#868e96;" id="lng-admin-sub">ກວດສອບຍອດຂາຍ ແລະ ຈັດການຂໍ້ມູນຮ້ານ</p>
+            </div>
+            <div class="header-btn-group">
+                <button class="btn btn-sm btn-lang" onclick="toggleLanguage()">LO / EN</button>
+                <button class="btn btn-sm" id="lng-btn-back" onclick="showPage('orderPage')">ກັບຄືນໜ້າຈໍຂາຍ</button>
+            </div>
+        </div>
+
+        <div class="category-tabs" style="padding: 20px 20px 0 20px; margin-bottom: 0;">
+            <button class="tab-btn active" id="btnTabReport" onclick="switchAdminSubTab('report')">ສະຫຼຸບຍອດຂາຍແລະປະຫວັດບິນ</button>
+            <button class="tab-btn" id="btnTabStaff" onclick="switchAdminSubTab('staff')">👥 ຈັດການລາຍຊື່ແລະລະຫັດພະນັກງານ</button>
+        </div>
+
+        <div id="adminReportSection">
+            <div class="admin-grid">
+                <div class="report-card">
+                    <p id="lng-card-day">ສະຫຼຸບຍອດເງິນລາຍວັນ</p>
+                    <h3 id="summaryDay" class="en-text">0 LAK</h3>
+                </div>
+                <div class="report-card" style="border-left-color: #17a2b8;">
+                    <p id="lng-card-week">ສະຫຼຸບຍອດເງິນລາຍອາທິດ</p>
+                    <h3 id="summaryWeek" class="en-text">0 LAK</h3>
+                </div>
+                <div class="report-card" style="border-left-color: #40a759;">
+                    <p id="lng-card-month">ສະຫຼຸບຍອດເງິນລາຍເດືອນ</p>
+                    <h3 id="summaryMonth" class="en-text">0 LAK</h3>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <h3 style="font-weight:600;" id="lng-table-history-title">ປະຫວັດການບັນທຶກຂໍ້ມູນການຂາຍ</h3>
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th id="th-b-id">ເລກທີບິນ</th>
+                            <th id="th-b-time">ເວລາ</th>
+                            <th id="th-b-menu">ລາຍການເມນູ</th>
+                            <th id="th-b-total">ລາຄະລວມ</th>
+                            <th id="th-b-receive">ຮັບເງິນ/ທອນ</th>
+                            <th id="th-b-method">ຊ່ອງທາງ</th>
+                            <th id="th-b-status">ສະຖານະ</th>
+                            <th id="th-b-manage">การຈັດການ</th>
+                        </tr>
+                    </thead>
+                    <tbody class="en-text"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="adminStaffSection" style="display: none; padding: 20px;">
+            <h3 style="font-weight: 600; margin-bottom: 15px;" id="lng-add-staff-title">ເພີ່ມພະນັກງານຄົນໃໝ່ເຂົ້າລະບົບ</h3>
+            <div class="add-staff-box" style="background:#f8f9fa; padding: 20px; border-radius:12px; margin-bottom:25px; max-width:500px;">
+                <div class="form-group">
+                    <label id="lng-st-user">ລະຫັດພະນັກງານ (Username)</label>
+                    <input type="text" id="newStaffUser" class="form-control" placeholder="staff03">
+                </div>
+                <div class="form-group">
+                    <label id="lng-st-name">ຊື່ພະນັກງານ (Name)</label>
+                    <input type="text" id="newStaffName" class="form-control" placeholder="...">
+                </div>
+                <div class="form-group">
+                    <label id="lng-st-pass">ລະຫັດຜ່ານ (Password)</label>
+                    <input type="text" id="newStaffPass" class="form-control" placeholder="...">
+                </div>
+                <div class="form-group">
+                    <label id="lng-st-role">ຕຳແໜ່ງສິດ</label>
+                    <select id="newStaffRole" class="form-control">
+                        <option value="staff">ພະນັກງານທົ່ວໄປ (Staff)</option>
+                        <option value="admin">👑 ຜູ້ຈັດການຮ້ານ (Admin)</option>
+                    </select>
+                </div>
+                <button class="btn" style="background: #40a759;" id="lng-btn-save-st" onclick="addNewStaff()">➕ ບັນທຶກພະນັກງານ</button>
+            </div>
+
+            <h3 style="font-weight: 600; margin-bottom: 10px;" id="lng-staff-list-title">ລາຍຊື່ພະນັກງານປະຈຸບັນໃນລະບົບ</h3>
+            <div class="table-container" style="padding:0;">
+                <table id="staffTable">
+                    <thead>
+                        <tr>
+                            <th id="th-st-user">ລະຫັດພະນັກງານ (Username)</th>
+                            <th id="th-st-name">ຊື່ພະນັກງານ (Name)</th>
+                            <th id="th-st-pass">ລະຫັດຜ່ານ (Password)</th>
+                            <th id="th-st-role">ຕຳແໜ່ງສິດ</th>
+                            <th id="th-st-manage">ການຈັດການ</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="drinkModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modalDrinkName">Option</h3>
+            <div class="form-group">
+                <label id="lng-md-type">ປະເພດເຄື່ອງດື່ມ</label>
+                <select id="drinkType" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label id="lng-md-sweet">ລະດັບຄວາມຫວານ</label>
+                <select id="drinkSweet" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label id="lng-md-whip">ວິບຄຣີມ (Whipped Cream)</label>
+                <select id="drinkWhip" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label id="lng-md-qty">ຈຳນວນ (Quantity)</label>
+                <div class="qty-counter">
+                    <button class="btn-qty" onclick="changeModalQty(-1)">-</button>
+                    <span class="qty-num" id="modalQtyNum">1</span>
+                    <button class="btn-qty" onclick="changeModalQty(1)">+</button>
+                </div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="btn" style="background:#e0e0e0; color:#333;" id="lng-md-cancel" onclick="closeModal('drinkModal')">ຍົກເລີກ</button>
+                <button class="btn" id="lng-md-confirm" onclick="confirmAddDrink()">ເພີ່ມລົງບິນ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dessertModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modalDessertName">Dessert Option</h3>
+            <div class="form-group">
+                <label id="lng-md-qty-ds">ຈຳນວນ (Quantity)</label>
+                <div class="qty-counter">
+                    <button class="btn-qty" onclick="changeDessertModalQty(-1)">-</button>
+                    <span class="qty-num" id="modalDessertQtyNum">1</span>
+                    <button class="btn-qty" onclick="changeDessertModalQty(1)">+</button>
+                </div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="btn" style="background:#e0e0e0; color:#333;" id="lng-md-cancel-ds" onclick="closeModal('dessertModal')">ຍົກເລີກ</button>
+                <button class="btn" style="background:#495057;" id="lng-md-confirm-ds" onclick="confirmAddDessert()">ເພີ່ມລົງບິນ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cashModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="lng-cash-title">💵 ຊຳລະເງິນດ້ວຍເງິນສົດ</h3>
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+                <span style="color: #6c757d; font-size: 0.9rem;" id="lng-cash-total-lbl">ຍອດລວມທີ່ຕ້ອງຊຳລະ</span>
+                <h2 id="cashModalTotal" class="en-text" style="font-weight: 700; color: #333; margin-top:5px;">0 LAK</h2>
+            </div>
+            <div class="form-group">
+                <label id="lng-cash-receive-lbl">ຈຳນວນເງິນທີ່ຮັບມາ (ກີບ)</label>
+                <input type="number" id="cashReceived" class="form-control en-text" placeholder="0">
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="btn" style="background:#e0e0e0; color:#333;" id="lng-cash-cancel" onclick="closeModal('cashModal')">ຍົກເລີກ</button>
+                <button class="btn btn-cash" id="lng-cash-confirm" onclick="submitCashPayment()">ຊຳລະເງິນ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="receiptPrintModal" class="modal" style="background: rgba(0,0,0,0.6);">
+        <div class="receipt-popup-content">
+            <div class="receipt-header-centered">
+                <div class="receipt-title">✨ SALON CAFE ✨</div>
+                <div class="receipt-subtitle">--- BOUNMA SHOP STYLE ---</div>
+                <div class="receipt-type-text" id="lblReceiptTypeTitle">ໃບບິນ / Receipt</div>
+            </div>
+            <div class="receipt-divider"></div>
+            
+            <div class="receipt-info-line">ເລກບິນ / Bill ID: <b id="pBillId" class="en-text">INV-00000</b></div>
+            <div class="receipt-info-line">ວັນທີ / Date: <span id="pBillDate" class="en-text">00/00/0000</span></div>
+            <div class="receipt-info-line">ເວລາ / Time: <span id="pBillTime" class="en-text">00:00:00</span></div>
+            <div class="receipt-info-line">ຜູ້ຂາຍ / Cashier: <span id="pBillCashier">-</span></div>
+            <div class="receipt-divider"></div>
+            
+            <div id="pBillItemsContainer"></div>
+            <div class="receipt-divider"></div>
+            
+            <div class="receipt-total-bold">ຍອດລວມ / Total: <span id="pBillTotal" class="en-text">0</span> <span id="pBillCurrency">ກີບ</span></div>
+            <div id="pBillPaymentDetails"></div>
+            <div class="receipt-divider"></div>
+            
+            <div class="receipt-header-centered">
+                <div style="font-weight: 500; font-size: 0.95rem; margin-top: 5px;">ຂອບໃຈທີ່ມາອຸດໜູນ</div>
+                <div style="font-family: var(--font-en); font-size: 0.9rem; color: #495057;">Thank You!</div>
+            </div>
+
+            <div class="receipt-action-buttons" style="display: flex; gap: 10px; margin-top: 25px;">
+                <button class="btn" style="background:#6c757d;" onclick="closeModal('receiptPrintModal')">ປິດໜ້າຕ່າງ (Close)</button>
+                <button class="btn" style="background:#40a759;" onclick="window.print()">🖨️ ສັ່ງປຣິ່ນບິນ (Print)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'lo'; 
+        
+        // ຖານຂໍ້ມູນພາສາ (Language Packs)
+        const langPack = {
+            lo: {
+                loginSub: "ລະບົບຈັດການຮ້ານຄາເຟ່ແບບມິນິມອນ", loginUser: "ຊື່ຜູ້ໃຊ້ / ລະຫັດພະນັກງານ (Username)",
+                loginPass: "ລະຫັດຜ່ານ (Password)", loginBtn: "ເຂົ້າສູ່ລະບົບ", logoutBtn: "ອອກຈາກລະບົບ",
+                userBadge: "ຜູ້ລົງທະບຽນເຂົ້າໃຊ້: ", adminBtn: "ແດຊບອດຜູ້ຈັດการ", tabDrinks: "ເມນູເຄື່ອງດື່ມ",
+                tabDesserts: "ເມນູຂະໜົມຫວານ", cartTitle: "ລາຍການອໍເດີ້ໃນບິນ", cartTotal: "ຍອດລວມ: ",
+                btnClear: "ລ້າງອໍເດີ້", btnCash: "💵 ຈ່າຍດ້ວຍເງິນສົດ", btnQr: "📱 ສະແກນຈ່າຍ QR Code",
+                adminTitle: "📊 ແຜງຄວບຄຸມຜູ້ຈັດການ (Admin)", adminSub: "ກວດສອບຍອດຂາຍ ແລະ ຈັດການຂໍ້ມູນຮ້ານ",
+                tabRep: "ສະຫຼຸບຍອດຂາຍແລະປະຫວັດບິນ", tabSt: "👥 ຈັດການລາຍຊື່ແລະລະຫັດພະນັກງານ",
+                cDay: "ສະຫຼຸບຍອດເງິນລາຍວັນ", cWeek: "ສະຫຼຸບຍອດເງິນລາຍອາທິດ", cMonth: "ສະຫຼຸບຍອດເງິນລາຍເດືອນ",
+                tHistTitle: "ປະຫວັດການບັນທຶກຂໍ້ມູນການຂາຍ", thId: "ເລກທີບິນ", thTime: "ເວລາ", thMenu: "ລາຍການເມນູ",
+                thTotal: "ລາຄະລວມ", thRec: "ຮັບເງິນ/ທອນ", thMeth: "ຊ່ອງທາງ", thStat: "ສະຖານະ", thMng: "ການຈັດການ",
+                addStTitle: "ເພີ່ມພະນັກງານຄົນໃໝ່ເຂົ້າລະບົບ", stUser: "ລະຫັດພະນັກງານ (Username)",
+                stName: "ຊື່ພະນັກງານ (Name)", stPass: "ລະຫັດຜ່ານ (Password)", stRole: "ຕຳແໜ່ງສິດ",
+                btnSaveSt: "➕ ບັນທຶກພະນັກງານ", stListTitle: "ລາຍຊື່ພະນັກງານປະຈຸບັນໃນລະບົບ",
+                mdType: "ປະເພດເຄື່ອງດື່ມ", mdSweet: "ລະດັບຄວາມຫວານ", mdWhip: "ວິບຄຣີມ (Whipped Cream)", mdQty: "ຈຳນວນ (Quantity)", mdCancel: "ຍົກເລີກ", mdConfirm: "ເພີ່ມລົງບິນ",
+                cashTitle: "💵 ຊຳລະເງິນດ້ວຍເງິນສົດ", cashTotLbl: "ຍອດລວມທີ່ຕ້ອງຊຳລະ", cashRecLbl: "ຈຳນວນເງິນທີ່ຮັບມາ (ກີບ)",
+                currency: "ກີບ", 
+                optIce: "ເຢັນ (+0 ກີບ)", optFrp5: "ປັ່ນ (+5,000 ກີບ)", optFrp10: "ປັ່ນ (+10,000 ກີບ)", optHot: "ຮ້ອນ (+0 ກີບ)",
+                swNormal: "ຫວານປົກກະຕິ (100%)", swLess: "ຫວານໜ້ອຍ (50%)", swNone: "ບໍ່ຫວານເລີຍ (0%)", swMore: "ຫວານຫຼາຍ (120%)",
+                whNone: "ບໍ່ໃສ່ວິບຄຣີມ (+0)", whNormal: "ໃສ່ວິບຄຣີມປົກກະຕິ (+0)", whMore: "ເພີ່ມວິບຄຣີມພິເສດ (+5,000)",
+                roleAdmin: "👑 Admin (ຜູ້ຈັດການ)", roleStaff: "👤 Staff (ທົ່ວໄປ)", btnBack: "ກັບຄືນໜ້າຈໍຂາຍ",
+                alertSelect: "ກະລຸນາເລືອກເມນູລົງບິນກ່ອນຊຳລະເງິນ", alertNoMoney: "ເງິນບໍ່ພໍຈ່າຍ!", alertValidMoney: "ກະລຸນາກອກຈຳນວນເງິນໃຫ້ຖືກຕ້ອງ"
+            },
+            en: {
+                loginSub: "Minimal Cafe Management System", loginUser: "Username / Staff ID",
+                loginPass: "Password", loginBtn: "Login", logoutBtn: "Logout",
+                userBadge: "Logged in as: ", adminBtn: "Manager Dashboard", tabDrinks: "Drinks Menu",
+                tabDesserts: "Desserts Menu", cartTitle: "Current Order Cart", cartTotal: "Total: ",
+                btnClear: "Clear Order", btnCash: "💵 Cash Payment", btnQr: "📱 QR Code Scan",
+                adminTitle: "📊 Manager Dashboard (Admin)", adminSub: "Track restaurant sales and manage staff accounts",
+                tabRep: "Sales Reports & Order History", tabSt: "👥 Staff Account Management",
+                cDay: "Daily Total Sales", cWeek: "Weekly Total Sales", cMonth: "Monthly Total Sales",
+                tHistTitle: "Historical Sales Record Data", thId: "Bill ID", thTime: "Time", thMenu: "Menu Items",
+                thTotal: "Total Price", thRec: "Received/Change", thMeth: "Method", thStat: "Status", thMng: "Action",
+                addStTitle: "Add New Staff Member", stUser: "Staff ID (Username)",
+                stName: "Staff Name", stPass: "Password", stRole: "Access Role",
+                btnSaveSt: "➕ Save Staff", stListTitle: "Current Active Staff List",
+                mdType: "Drink Type Option", mdSweet: "Sweetness Level", mdWhip: "Whipped Cream", mdQty: "Quantity", mdCancel: "Cancel", mdConfirm: "Add to Cart",
+                cashTitle: "💵 Pay with Cash Money", cashTotLbl: "Total Amount Due", cashRecLbl: "Cash Received (LAK)",
+                currency: "LAK", 
+                optIce: "Ice (+0 LAK)", optFrp5: "Frappe (+5,000 LAK)", optFrp10: "Frappe (+10,000 LAK)", optHot: "Hot (+0 LAK)",
+                swNormal: "Regular (100%)", swLess: "Less Sweet (50%)", swNone: "No Sugar (0%)", swMore: "Extra Sweet (120%)",
+                whNone: "No Whip (+0)", whNormal: "Add Whipped Cream (+0)", whMore: "Extra Whipped Cream (+5,000)",
+                roleAdmin: "👑 Admin (Manager)", roleStaff: "👤 Staff (General)", btnBack: "Back to POS Screen",
+                alertSelect: "Please select menu items before checkout.", alertNoMoney: "Not enough cash!", alertValidMoney: "Please enter a valid amount."
+            }
+        };
+
+        // ຂໍ້ມູນເມນູເຄື່ອງດື່ມ (Drinks)
+        const drinksData = [
+            { id: 1, name_lo: "ເອສເປຣສໂຊ່", name_en: "Espresso", price: 25000, icon: "☕" },
+            { id: 2, name_lo: "ຊາຂຽວມັດຊະ", name_en: "Matcha Green Tea", price: 28000, icon: "🍵" },
+            { id: 3, name_lo: "ຊານົມໄຕ້ຫວັນ", name_en: "Taiwan Milk Tea", price: 22000, icon: "🧋" },
+            { id: 4, name_lo: "ໂກໂກ້ລາເຕ້", name_en: "Cocoa Latte", price: 25000, icon: "🍫" },
+            { id: 5, name_lo: "ນົມສົດຄາຣາເມລ", name_en: "Caramel Fresh Milk", price: 28000, icon: "🥛" },
+            { id: 6, name_lo: "ສະຕໍເບີຣີ່ໂຊດາ", name_en: "Strawberry Soda", price: 20000, icon: "🍓" }
+        ];
+
+        // ຂໍ້ມູນເມນູຂະໜົມຫວານ (Desserts)
+        const dessertsData = [
+            { id: 7, name_lo: "ຮັນນີ່ໂທດສ໌", name_en: "Honey Toast", price: 45000, icon: "🍞" },
+            { id: 8, name_lo: "ຄຣັອບເຟິລນົມສົດ", name_en: "Fresh Milk Croffle", price: 22000, icon: "🧇" },
+            { id: 9, name_lo: "ເຄ້ກຊັອກໂກແລັດ", name_en: "Chocolate Cake", price: 30000, icon: "🍰" },
+            { id: 10, name_lo: "ບິງຊູຊາໄທ", name_en: "Thai Tea Bingsu", price: 55000, icon: "🍧" }
+        ];
+
+        // ລາຍຊື່ບັນຊີຜູ້ໃຊ້ເລີ່ມຕົ້ນ (Default Staff)
+        const defaultStaffList = [
+            { username: "admin01", name: "Chid (Owner)", pass: "1234", role: "admin" },
+            { username: "staff01", name: "Souphaphone", pass: "1111", role: "staff" },
+            { username: "sit", name: "Sit", pass: "2222", role: "staff" }
+        ];
+
+        let staffList = JSON.parse(localStorage.getItem('salon_cafe_users')) || defaultStaffList;
+        if(!localStorage.getItem('salon_cafe_users')) localStorage.setItem('salon_cafe_users', JSON.stringify(staffList));
+
+        let currentUser = null;
+        let cart = [];
+        let total = 0;
+        
+        let selectedDrink = null;
+        let modalQty = 1;
+
+        let selectedDessert = null;
+        let modalDessertQty = 1;
+
+        let salesHistory = JSON.parse(localStorage.getItem('salon_cafe_sales')) || [];
+
+        // ຟັງຊັນປ່ຽນພາສາ ແລະ ສະແດງຜົນຂໍ້ຄວາມໃນລະບົບ
+        function applyLanguage() {
+            const p = langPack[currentLang];
+            document.getElementById('lng-login-sub').innerText = p.loginSub;
+            document.getElementById('lng-login-user-lbl').innerText = p.loginUser;
+            document.getElementById('lng-login-pass-lbl').innerText = p.loginPass;
+            document.getElementById('lng-login-btn').innerText = p.loginBtn;
+            document.getElementById('lng-logout-btn').innerText = p.logoutBtn;
+            document.getElementById('lng-tab-drinks').innerText = p.tabDrinks;
+            document.getElementById('lng-tab-desserts').innerText = p.tabDesserts;
+            document.getElementById('lng-cart-title').innerText = p.cartTitle;
+            document.getElementById('lng-btn-clear').innerText = p.btnClear;
+            document.getElementById('lng-btn-cash').innerText = p.btnCash;
+            document.getElementById('lng-btn-qr').innerText = p.btnQr;
+            document.getElementById('lng-admin-title').innerText = p.adminTitle;
+            document.getElementById('lng-admin-sub').innerText = p.adminSub;
+            document.getElementById('btnTabReport').innerText = p.tabRep;
+            document.getElementById('btnTabStaff').innerText = p.tabSt;
+            document.getElementById('lng-card-day').innerText = p.cDay;
+            document.getElementById('lng-card-week').innerText = p.cWeek;
+            document.getElementById('lng-card-month').innerText = p.cMonth;
+            document.getElementById('lng-table-history-title').innerText = p.tHistTitle;
+            document.getElementById('lng-btn-back').innerText = p.btnBack;
+
+            document.getElementById('th-b-id').innerText = p.thId;
+            document.getElementById('th-b-time').innerText = p.thTime;
+            document.getElementById('th-b-menu').innerText = p.thMenu;
+            document.getElementById('th-b-total').innerText = p.thTotal;
+            document.getElementById('th-b-receive').innerText = p.thRec;
+            document.getElementById('th-b-method').innerText = p.thMeth;
+            document.getElementById('th-b-status').innerText = p.thStat;
+            document.getElementById('th-b-manage').innerText = p.thMng;
+
+            document.getElementById('lng-add-staff-title').innerText = p.addStTitle;
+            document.getElementById('lng-st-user').innerText = p.stUser;
+            document.getElementById('lng-st-name').innerText = p.stName;
+            document.getElementById('lng-st-pass').innerText = p.stPass;
+            document.getElementById('lng-st-role').innerText = p.stRole;
+            document.getElementById('lng-btn-save-st').innerText = p.btnSaveSt;
+            document.getElementById('lng-staff-list-title').innerText = p.stListTitle;
+            document.getElementById('th-st-user').innerText = p.stUser;
+            document.getElementById('th-st-name').innerText = p.stName;
+            document.getElementById('th-st-pass').innerText = p.stPass;
+            document.getElementById('th-st-role').innerText = p.stRole;
+            document.getElementById('th-st-manage').innerText = p.thMng;
+
+            document.getElementById('lng-md-type').innerText = p.mdType;
+            document.getElementById('lng-md-sweet').innerText = p.mdSweet;
+            document.getElementById('lng-md-cancel').innerText = p.mdCancel;
+            document.getElementById('lng-md-confirm').innerText = p.mdConfirm;
+            document.getElementById('lng-cash-title').innerText = p.cashTitle;
+            document.getElementById('lng-cash-total-lbl').innerText = p.cashTotLbl;
+            document.getElementById('lng-cash-receive-lbl').innerText = p.cashRecLbl;
+            document.getElementById('lng-cash-cancel').innerText = p.mdCancel;
+            document.getElementById('lng-cash-confirm').innerText = p.btnCash;
+
+            if(currentUser) {
+                document.getElementById('userBadge').innerText = `${p.userBadge} ${currentUser.name} (${currentUser.role.toUpperCase()})`;
+            }
+            renderMenus();
+            updateCartUI();
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'lo' ? 'en' : 'lo';
+            applyLanguage();
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            if(pageId === 'adminPage') switchAdminSubTab('report');
+        }
+
+        // ລະບົບກວດສອບການເຂົ້າສູ່ລະບົບ
+        function handleLogin() {
+            const userIn = document.getElementById('username').value.trim();
+            const passIn = document.getElementById('password').value.trim();
+            const userMatch = staffList.find(u => u.username === userIn && u.pass === passIn);
+
+            if (userMatch) {
+                currentUser = userMatch;
+                applyLanguage();
+                document.getElementById('adminDashboardBtn').style.display = currentUser.role === 'admin' ? 'block' : 'none';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                showPage('orderPage');
+            } else {
+                alert(currentLang === 'lo' ? "❌ ລະຫັດພະນັກງານ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ!" : "❌ Invalid Username or Password!");
+            }
+        }
+
+        function logout() { currentUser = null; showPage('loginPage'); }
+
+        function switchCategory(cat) {
+            document.getElementById('lng-tab-drinks').classList.remove('active');
+            document.getElementById('lng-tab-desserts').classList.remove('active');
+            if (cat === 'drinks') {
+                document.getElementById('lng-tab-drinks').classList.add('active');
+                document.getElementById('drinksGrid').style.display = 'grid';
+                document.getElementById('dessertsGrid').style.display = 'none';
+            } else {
+                document.getElementById('lng-tab-desserts').classList.add('active');
+                document.getElementById('drinksGrid').style.display = 'none';
+                document.getElementById('dessertsGrid').style.display = 'grid';
+            }
+        }
+
+        function switchAdminSubTab(subTab) {
+            document.getElementById('btnTabReport').classList.remove('active');
+            document.getElementById('btnTabStaff').classList.remove('active');
+            if (subTab === 'report') {
+                document.getElementById('btnTabReport').classList.add('active');
+                document.getElementById('adminReportSection').style.display = 'block';
+                document.getElementById('adminStaffSection').style.display = 'none';
+                updateAdminDashboard();
+            } else {
+                document.getElementById('btnTabStaff').classList.add('active');
+                document.getElementById('adminReportSection').style.display = 'none';
+                document.getElementById('adminStaffSection').style.display = 'block';
+                renderStaffTable();
+            }
+        }
+
+        // ສະແດງຜົນລາຍການເມນູສິນຄ້າທັງໝົດ
+        function renderMenus() {
+            const suffix = langPack[currentLang].currency;
+            document.getElementById('drinksGrid').innerHTML = drinksData.map(item => `
+                <div class="menu-card" onclick="openDrinkModal(${item.id})">
+                    <div class="menu-icon">${item.icon}</div>
+                    <div class="menu-name">${currentLang === 'lo' ? item.name_lo : item.name_en}</div>
+                    <div class="menu-price">${item.price.toLocaleString()} ${suffix}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('dessertsGrid').innerHTML = dessertsData.map(item => `
+                <div class="menu-card" onclick="openDessertModal(${item.id})">
+                    <div class="menu-icon">${item.icon}</div>
+                    <div class="menu-name">${currentLang === 'lo' ? item.name_lo : item.name_en}</div>
+                    <div class="menu-price">${item.price.toLocaleString()} ${suffix}</div>
+                </div>
+            `).join('');
+        }
+
+        // ຈັດການປ໊ອບອັບເຄື່ອງດື່ມ
+        function openDrinkModal(id) {
+            selectedDrink = drinksData.find(d => d.id === id);
+            const p = langPack[currentLang];
+            modalQty = 1;
+            document.getElementById('modalQtyNum').innerText = modalQty;
+            document.getElementById('modalDrinkName').innerText = currentLang === 'lo' ? selectedDrink.name_lo : selectedDrink.name_en;
+            
+            document.getElementById('drinkType').innerHTML = `
+                <option value="Ice (+0)">${p.optIce}</option>
+                <option value="Hot (+0)">${p.optHot}</option>
+                <option value="Frappe (+5000)">${p.optFrp5}</option>
+                <option value="Frappe (+10000)">${p.optFrp10}</option>
+            `;
+            document.getElementById('drinkSweet').innerHTML = `
+                <option value="100%">${p.swNormal}</option>
+                <option value="50%">${p.swLess}</option>
+                <option value="0%">${p.swNone}</option>
+                <option value="120%">${p.swMore}</option>
+            `;
+            document.getElementById('drinkWhip').innerHTML = `
+                <option value="NoWhip">${p.whNone}</option>
+                <option value="AddWhip">${p.whNormal}</option>
+                <option value="ExtraWhip (+5000)">${p.whMore}</option>
+            `;
+            document.getElementById('drinkModal').style.display = 'flex';
+        }
+
+        function changeModalQty(amount) {
+            modalQty += amount;
+            if (modalQty < 1) modalQty = 1;
+            document.getElementById('modalQtyNum').innerText = modalQty;
+        }
+
+        function confirmAddDrink() {
+            const typeVal = document.getElementById('drinkType').value;
+            const sweetVal = document.getElementById('drinkSweet').value;
+            const whipVal = document.getElementById('drinkWhip').value;
+            
+            let extraCost = 0;
+            if(typeVal.includes("5000")) extraCost += 5000;
+            if(typeVal.includes("10000")) extraCost += 10000;
+            if(whipVal.includes("5000")) extraCost += 5000;
+
+            const finalSinglePrice = selectedDrink.price + extraCost;
+            const nameBase = currentLang === 'lo' ? selectedDrink.name_lo : selectedDrink.name_en;
+            
+            let whipTextDisplay = "";
+            if(whipVal === "AddWhip") whipTextDisplay = ", +Whip";
+            if(whipVal.includes("ExtraWhip")) whipTextDisplay = ", +ExtraWhip";
+
+            const fullName = `${nameBase} (${typeVal.split(' ')[0]}, ຫວານ ${sweetVal}${whipTextDisplay})`;
+            
+            cart.push({ 
+                name: fullName, 
+                price: finalSinglePrice * modalQty, 
+                qty: modalQty, 
+                singlePrice: finalSinglePrice 
+            });
+            
+            updateCartUI();
+            closeModal('drinkModal');
+        }
+
+        // ຈັດການປ໊ອບອັບຂະໜົມຫວານ
+        function openDessertModal(id) {
+            selectedDessert = dessertsData.find(d => d.id === id);
+            modalDessertQty = 1;
+            document.getElementById('modalDessertQtyNum').innerText = modalDessertQty;
+            document.getElementById('modalDessertName').innerText = currentLang === 'lo' ? selectedDessert.name_lo : selectedDessert.name_en;
+            document.getElementById('dessertModal').style.display = 'flex';
+        }
+
+        function changeDessertModalQty(amount) {
+            modalDessertQty += amount;
+            if (modalDessertQty < 1) modalDessertQty = 1;
+            document.getElementById('modalDessertQtyNum').innerText = modalDessertQty;
+        }
+
+        function confirmAddDessert() {
+            const nameBase = currentLang === 'lo' ? selectedDessert.name_lo : selectedDessert.name_en;
+            cart.push({ 
+                name: nameBase, 
+                price: selectedDessert.price * modalDessertQty, 
+                qty: modalDessertQty, 
+                singlePrice: selectedDessert.price 
+            });
+            updateCartUI();
+            closeModal('dessertModal');
+        }
+
+        // ອັບເດດລາຍການໃນຕະກ້າ
+        function updateCartUI() {
+            const p = langPack[currentLang];
+            document.getElementById('cartList').innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div style="max-width: 65%;">
+                        <b>x${item.qty}</b> ${item.name}
+                    </div>
+                    <div class="en-text" style="display:flex; align-items:center; gap:8px;">
+                        <span>${item.price.toLocaleString()} ${p.currency}</span>
+                        <button onclick="removeItemFromCart(${index})" style="background:none; border:none; color:#dc3545; font-weight:bold; cursor:pointer; padding: 0 5px;">✕</button>
+                    </div>
+                </div>
+            `).join('');
+            total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cartTotal').innerHTML = `${p.cartTotal} <span class="en-text">${total.toLocaleString()}</span> ${p.currency}`;
+        }
+
+        function removeItemFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function openCashModal() {
+            if(cart.length === 0) { alert(langPack[currentLang].alertSelect); return; }
+            document.getElementById('cashModalTotal').innerText = `${total.toLocaleString()} ${langPack[currentLang].currency}`;
+            document.getElementById('cashReceived').value = '';
+            document.getElementById('cashModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+        function clearCart() { cart = []; updateCartUI(); }
+
+        function submitCashPayment() {
+            const received = parseFloat(document.getElementById('cashReceived').value);
+            const p = langPack[currentLang];
+            if (isNaN(received) || received < 0) { alert(p.alertValidMoney); return; }
+            if (received < total) { alert(p.alertNoMoney); return; }
+            
+            const change = received - total;
+            closeModal('cashModal');
+            processCheckout('Cash', received, change);
+        }
+
+        // 🧾 ລະບົບການອອກໃບບິນ ແລະ ຈັດຕຳແໜ່ງ (Print Billing Logic)
+        function processCheckout(method, received = 0, change = 0) {
+            if(cart.length === 0) return;
+            const billId = "INV-" + Math.floor(Math.random() * 90000 + 10000);
+            
+            const today = new Date();
+            const dateStr = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+            const timeStr = today.toLocaleTimeString('th-TH');
+            
+            const menuDetails = cart.map(i => `x${i.qty} ${i.name}`).join(', ');
+            const suffix = langPack[currentLang].currency;
+            const cashierName = currentUser ? currentUser.name : "Sit";
+
+            const newBill = {
+                id: billId, time: timeStr, details: menuDetails, price: total,
+                method: method, received: received, change: change, status: "SUCCESS"
+            };
+            salesHistory.push(newBill);
+            localStorage.setItem('salon_cafe_sales', JSON.stringify(salesHistory));
+
+            document.getElementById('pBillId').innerText = billId;
+            document.getElementById('pBillDate').innerText = dateStr;
+            document.getElementById('pBillTime').innerText = timeStr;
+            document.getElementById('pBillCashier').innerText = cashierName;
+            document.getElementById('pBillTotal').innerText = total.toLocaleString();
+            document.getElementById('pBillCurrency').innerText = suffix;
+
+            document.getElementById('lblReceiptTypeTitle').innerHTML = `ໃບບິນ / Receipt`;
+
+            // ບັງຄັບໃຫ້ລາຍການເມນູຢູ່ດ້ານຊ້າຍ (Left-aligned)
+            let itemsHtml = "";
+            cart.forEach((item, index) => {
+                itemsHtml += `
+                    <div class="receipt-item-line">${index + 1}. ${item.name}</div>
+                    <div class="receipt-item-price">x${item.qty} @${item.singlePrice.toLocaleString()} = ${item.price.toLocaleString()} ${suffix}</div>
+                `;
+            });
+            document.getElementById('pBillItemsContainer').innerHTML = itemsHtml;
+
+            // ບັງຄັບໃຫ້ສ່ວນການສະຫຼຸບເງິນຢູ່ດ້ານຂວາ (Right-aligned)
+            let paymentDetailsHtml = "";
+            if (method === 'Cash') {
+                paymentDetailsHtml = `
+                    <div class="receipt-money-right">ຮັບເງິນ / Received: <span class="en-text">${received.toLocaleString()}</span> ${suffix}</div>
+                    <div class="receipt-money-right">ເງິນທອນ / Change: <span class="en-text">${change.toLocaleString()}</span> ${suffix}</div>
+                `;
+            } else {
+                paymentDetailsHtml = `<div class="receipt-money-right">ຊຳລະຜ່ານ / Method: <span class="en-text">QR Code</span></div>`;
+            }
+            document.getElementById('pBillPaymentDetails').innerHTML = paymentDetailsHtml;
+
+            clearCart();
+            document.getElementById('receiptPrintModal').style.display = 'flex';
+
+            // ສັ່ງປຣິ່ນບິນອັດຕະໂນມັດ
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        }
+
+        // ອັບເດດລາຍງານໃນໜ້າ Admin
+        function updateAdminDashboard() {
+            const suffix = langPack[currentLang].currency;
+            const activeSales = salesHistory.filter(b => b.status === "SUCCESS");
+            const sum = activeSales.reduce((total, b) => total + b.price, 0);
+
+            document.getElementById('summaryDay').innerText = `${sum.toLocaleString()} ${suffix}`;
+            document.getElementById('summaryWeek').innerText = `${sum.toLocaleString()} ${suffix}`;
+            document.getElementById('summaryMonth').innerText = `${sum.toLocaleString()} ${suffix}`;
+
+            const tbody = document.querySelector('#historyTable tbody');
+            tbody.innerHTML = salesHistory.map((bill, index) => `
+                <tr>
+                    <td><b>${bill.id}</b></td>
+                    <td>${bill.time}</td>
+                    <td style="font-size:0.85rem; color:#495057;">${bill.details}</td>
+                    <td><b>${bill.price.toLocaleString()}</b></td>
+                    <td>${bill.method === 'Cash' ? `${bill.received.toLocaleString()} / ${bill.change.toLocaleString()}` : '-'}</td>
+                    <td>${bill.method}</td>
+                    <td><span class="status-badge ${bill.status === 'SUCCESS' ? 'status-success' : 'status-void'}">${bill.status}</span></td>
+                    <td>
+                        <div class="action-btns-flex">
+                            ${bill.status === 'SUCCESS' ? `<button class="btn btn-table btn-void" onclick="voidBill(${index})">Void</button>` : '-'}
+                            <button class="btn btn-table btn-delete" onclick="deleteBillPermanently(${index})">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function voidBill(index) {
+            if(confirm(`Cancel bill ${salesHistory[index].id}?`)) {
+                salesHistory[index].status = "VOIDED";
+                localStorage.setItem('salon_cafe_sales', JSON.stringify(salesHistory));
+                updateAdminDashboard();
+            }
+        }
+
+        function deleteBillPermanently(index) {
+            if(confirm(`Delete bill ${salesHistory[index].id} permanently?`)) {
+                salesHistory.splice(index, 1);
+                localStorage.setItem('salon_cafe_sales', JSON.stringify(salesHistory));
+                updateAdminDashboard();
+            }
+        }
+
+        // ຈັດການສະແດງຜົນຕາຕະລາງລາຍຊື່ພະນັກງານ
+        function renderStaffTable() {
+            const tbody = document.querySelector('#staffTable tbody');
+            const p = langPack[currentLang];
+            tbody.innerHTML = staffList.map((user, index) => `
+                <tr>
+                    <td class="en-text"><b>${user.username}</b></td>
+                    <td>${user.name}</td>
+                    <td class="en-text"><code>${user.pass}</code></td>
+                    <td><span class="status-badge" style="background:#e9ecef; color:#495057;">${user.role === 'admin' ? p.roleAdmin : p.roleStaff}</span></td>
+                    <td>
+                        <div class="action-btns-flex">
+                            <button class="btn btn-table btn-edit" onclick="editStaff(${index})">Edit</button>
+                            <button class="btn btn-table btn-void" onclick="deleteStaff(${index})">Remove</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function addNewStaff() {
+            const user = document.getElementById('newStaffUser').value.trim();
+            const name = document.getElementById('newStaffName').value.trim();
+            const pass = document.getElementById('newStaffPass').value.trim();
+            const role = document.getElementById('newStaffRole').value;
+
+            if(!user || !name || !pass) { alert("Please fill all inputs."); return; }
+
+            const isDuplicate = staffList.some(u => u.username.toLowerCase() === user.toLowerCase());
+            if(isDuplicate) { alert(`Username "${user}" already exists!`); return; }
+
+            staffList.push({ username: user, name: name, pass: pass, role: role });
+            localStorage.setItem('salon_cafe_users', JSON.stringify(staffList));
+            
+            document.getElementById('newStaffUser').value = '';
+            document.getElementById('newStaffName').value = '';
+            document.getElementById('newStaffPass').value = '';
+            renderStaffTable();
+        }
+
+        function editStaff(index) {
+            const target = staffList[index];
+            const newName = prompt("Edit staff name:", target.name);
+            if (newName === null || newName.trim() === "") return;
+
+            const newPass = prompt("Edit staff password:", target.pass);
+            if (newPass === null || newPass.trim() === "") return;
+
+            const newRoleInput = prompt("Edit Role (Type 'admin' or 'staff'):", target.role);
+            if (newRoleInput === null) return;
+            const newRole = newRoleInput.trim().toLowerCase();
+
+            if (newRole !== 'admin' && newRole !== 'staff') { alert("Invalid role! Enter 'admin' or 'staff'."); return; }
+
+            staffList[index].name = newName.trim();
+            staffList[index].pass = newPass.trim();
+            staffList[index].role = newRole;
+
+            localStorage.setItem('salon_cafe_users', JSON.stringify(staffList));
+            renderStaffTable();
+        }
+
+        function deleteStaff(index) {
+            if(currentUser && currentUser.username === staffList[index].username) { alert("You cannot delete yourself!"); return; }
+            if(confirm(`Delete ${staffList[index].name}?`)) {
+                staffList.splice(index, 1);
+                localStorage.setItem('salon_cafe_users', JSON.stringify(staffList));
+                renderStaffTable();
+            }
+        }
+
+        // ໃຫ້ລະບົບເລີ່ມຕົ້ນເຮັດວຽກທັນທີເມື່ອເປີດໜ້າເວັບ
+        applyLanguage();
+    </script>
+</body>
+</html>
