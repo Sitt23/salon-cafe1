@@ -11,13 +11,6 @@
         :root {
             --font-lao: 'Prasat OT', 'Noto Sans Lao', sans-serif;
             --font-en: 'Times New Roman', Times, serif;
-            --primary-color: #495057;
-            --success-color: #40a759;
-            --info-color: #17a2b8;
-            --danger-color: #dc3545;
-            --warning-color: #fd7e14;
-            --light-bg: #f8f9fa;
-            --border-color: #dee2e6;
         }
 
         * {
@@ -373,89 +366,155 @@
         }
         .qty-num { font-size: 1.2rem; font-weight: 600; min-width: 25px; text-align: center; font-family: var(--font-en); }
 
-        /* 🧾 ສ່ວນສະແດງຜົນໃບບິນ (Receipt Position Setup) */
+        /* ======================================================= */
+        /* ✨ ປັບປຸງດີໄຊນ໌ໜ້າຕ່າງໃບບິນໃໝ່ໃຫ້ສວຍງາມ (MINIMAL BILL DESIGN) */
+        /* ======================================================= */
         .receipt-popup-content {
             background: #ffffff;
             width: 100%;
-            max-width: 360px;
-            padding: 30px 20px;
+            max-width: 350px; /* ຂະໜາດກຳລັງດີ ບໍ່ໃຫຍ່ບໍ່ນ້ອຍເກີນໄປ */
+            padding: 24px 18px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             font-family: var(--font-lao);
+            color: #2b2b2b;
         }
 
-        /* ສ່ວນຫົວຂອງບິນ ໃຫ້ຢູ່ກົງກາງ */
         .receipt-header-centered {
-            text-align: center !important;
+            text-align: center;
+            margin-bottom: 12px;
         }
+        
         .receipt-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 4px;
-            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: 0.5px;
         }
+        
         .receipt-subtitle {
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin-bottom: 15px;
+            font-size: 0.8rem;
+            color: #7a7a7a;
+            margin-top: 2px;
             font-family: var(--font-en);
-            text-align: center;
+            letter-spacing: 1px;
         }
+        
         .receipt-type-text {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin: 10px 0;
-            text-align: center;
+            color: #4a4a4a;
+            margin-top: 8px;
+            text-transform: uppercase;
         }
 
         .receipt-divider {
-            border-top: 1px dashed #adb5bd;
-            margin: 12px 0;
+            border-top: 1px dashed #bbb;
+            margin: 10px 0;
             width: 100%;
         }
 
-        /* ລາຍລະອຽດທົ່ວໄປຂອງບິນ ໃຫ້ຢູ່ດ້ານຊ້າຍ */
-        .receipt-info-line {
-            font-size: 0.95rem;
-            margin-bottom: 5px;
-            color: #495057;
-            text-align: left;
+        /* ຂໍ້ມູນທົ່ວໄປຂອງບິນ */
+        .receipt-meta-box {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .receipt-meta-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
         }
 
-        /* 🔹 ສິນຄ້າ ແລະ ເມນູ: ບັງຄັບໃຫ້ຢູ່ດ້ານຊ້າຍ (Left-aligned) */
-        .receipt-item-line {
-            font-size: 0.95rem;
-            margin: 8px 0 2px 0;
-            font-weight: 600;
-            text-align: left !important;
+        /* ລາຍການສິນຄ້າ */
+        .receipt-items-list {
+            margin: 10px 0;
         }
-        .receipt-item-price {
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin-bottom: 10px;
-            font-family: var(--font-en);
-            text-align: left !important;
+        
+        .receipt-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-size: 0.88rem;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+        
+        .receipt-item-name {
+            flex: 1;
+            padding-right: 10px;
+            word-break: break-word;
+        }
+        
+        .receipt-item-qty-price {
+            text-align: right;
+            white-space: nowrap;
+            color: #333;
         }
 
-        /* 🔸 ຍອດລວມ, ເງິນຮັບ, ເງິນທອນ: ບັງຄັບໃຫ້ຢູ່ດ້ານຂວา (Right-aligned) */
-        .receipt-total-bold {
-            font-size: 1.3rem;
+        /* ຍອດລວມ ແລະ ການເງິນ */
+        .receipt-summary-box {
+            margin-top: 8px;
+        }
+        
+        .receipt-summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            margin-bottom: 4px;
+        }
+        
+        .receipt-summary-row.total-bold {
+            font-size: 1.15rem;
             font-weight: 700;
-            margin: 15px 0;
-            text-align: right !important;
-        }
-        .receipt-money-right {
-            text-align: right !important;
-            font-size: 0.95rem;
-            margin-bottom: 5px;
-            color: #495057;
+            color: #000;
+            margin-top: 6px;
+            margin-bottom: 6px;
         }
 
+        .receipt-footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* ສ່ວນຄວບຄຸມປຸ່ມໃນໜ້າຈໍ */
+        .receipt-action-buttons {
+            display: flex; 
+            gap: 8px; 
+            margin-top: 20px;
+        }
+        .receipt-action-buttons .btn {
+            padding: 10px;
+            font-size: 0.9rem;
+            border-radius: 8px;
+        }
+
+        /* Config ສຳລັບເວລາພິມອອກທາງເຄື່ອງປຣິ່ນແທ້ */
         @media print {
+            body { background: white; padding: 0; }
             body * { visibility: hidden; }
             #receiptPrintModal, #receiptPrintModal * { visibility: visible; }
-            #receiptPrintModal { position: absolute; left: 0; top: 0; width: 100%; background: white; box-shadow: none; padding: 0; }
-            .receipt-popup-content { box-shadow: none; max-width: 100%; padding: 0; }
+            #receiptPrintModal { 
+                position: absolute; 
+                left: 0; top: 0; 
+                width: 100%; 
+                max-width: 100%;
+                background: white; 
+                box-shadow: none; 
+                padding: 0;
+                display: flex !important;
+                justify-content: center;
+            }
+            .receipt-popup-content { 
+                box-shadow: none; 
+                width: 100%;
+                max-width: 290px; /* ຂະໜາດມາດຕະຖານ Slip 58mm-80mm */
+                padding: 0; 
+                margin: 0;
+            }
             .receipt-action-buttons { display: none !important; }
         }
 
@@ -515,13 +574,13 @@
             </div>
 
             <div class="cart-side">
-                <h3 style="font-weight:600; border-bottom:1px solid #f1f3f5; padding-bottom:10px;" id="lng-cart-title">ລາຍການອໍເດີ້ໃນບິນ</h3>
+                <h3 style="font-weight:600; border-bottom:1px solid #f1f3f5; padding-bottom:10px;" id="lng-cart-title">ລາຍການอໍເດີ້ໃນບິນ</h3>
                 <div class="cart-list" id="cartList"></div>
                 <div>
                     <div class="cart-total" id="cartTotal">ຍອດລວມ: <span class="en-text">0</span> ກີບ</div>
                     <div class="checkout-buttons">
                         <button class="btn btn-clear" id="lng-btn-clear" onclick="clearCart()">ລ້າງອໍເດີ້</button>
-                        <button class="btn btn-cash" id="lng-btn-cash" onclick="openCashModal()">💵 ຈ່າຍດ້ວຍເງິນສົດ</button>
+                        <button class="btn btn-cash" id="lng-btn-cash" onclick="openCashModal()">💵 ຈ່າຍດ້ວຍเງິນສົດ</button>
                         <button class="btn btn-qr" id="lng-btn-qr" onclick="processCheckout('QR Code', 0, 0)">📱 ສະແກນຈ່າຍ QR Code</button>
                     </div>
                 </div>
@@ -549,32 +608,32 @@
         <div id="adminReportSection">
             <div class="admin-grid">
                 <div class="report-card">
-                    <p id="lng-card-day">ສະຫຼຸບຍອດເງິນລາຍວັນ</p>
+                    <p id="lng-card-day">... </p>
                     <h3 id="summaryDay" class="en-text">0 LAK</h3>
                 </div>
                 <div class="report-card" style="border-left-color: #17a2b8;">
-                    <p id="lng-card-week">ສະຫຼຸບຍອດເງິນລາຍອາທິດ</p>
+                    <p id="lng-card-week">... </p>
                     <h3 id="summaryWeek" class="en-text">0 LAK</h3>
                 </div>
                 <div class="report-card" style="border-left-color: #40a759;">
-                    <p id="lng-card-month">ສະຫຼຸບຍອດເງິນລາຍເດືອນ</p>
+                    <p id="lng-card-month">... </p>
                     <h3 id="summaryMonth" class="en-text">0 LAK</h3>
                 </div>
             </div>
 
             <div class="table-container">
-                <h3 style="font-weight:600;" id="lng-table-history-title">ປະຫວັດການບັນທຶກຂໍ້ມູນການຂາຍ</h3>
+                <h3 style="font-weight:600;" id="lng-table-history-title">... </h3>
                 <table id="historyTable">
                     <thead>
                         <tr>
-                            <th id="th-b-id">ເລກທີບິນ</th>
-                            <th id="th-b-time">ເວລາ</th>
-                            <th id="th-b-menu">ລາຍການເມນູ</th>
-                            <th id="th-b-total">ລາຄະລວມ</th>
-                            <th id="th-b-receive">ຮັບເງິນ/ທອນ</th>
-                            <th id="th-b-method">ຊ່ອງທາງ</th>
-                            <th id="th-b-status">ສະຖານະ</th>
-                            <th id="th-b-manage">การຈັດການ</th>
+                            <th id="th-b-id">...</th>
+                            <th id="th-b-time">...</th>
+                            <th id="th-b-menu">...</th>
+                            <th id="th-b-total">...</th>
+                            <th id="th-b-receive">...</th>
+                            <th id="th-b-method">...</th>
+                            <th id="th-b-status">...</th>
+                            <th id="th-b-manage">...</th>
                         </tr>
                     </thead>
                     <tbody class="en-text"></tbody>
@@ -583,45 +642,43 @@
         </div>
 
         <div id="adminStaffSection" style="display: none; padding: 20px;">
-            <h3 style="font-weight: 600; margin-bottom: 15px;" id="lng-add-staff-title">ເພີ່ມພະນັກງານຄົນໃໝ່ເຂົ້າລະບົບ</h3>
-            <div class="add-staff-box" style="background:#f8f9fa; padding: 20px; border-radius:12px; margin-bottom:25px; max-width:500px;">
+            <h3 style="font-weight: 600; margin-bottom: 15px;" id="lng-add-staff-title">... </h3>
+            <div class="add-staff-box">
                 <div class="form-group">
-                    <label id="lng-st-user">ລະຫັດພະນັກງານ (Username)</label>
+                    <label id="lng-st-user">... </label>
                     <input type="text" id="newStaffUser" class="form-control" placeholder="staff03">
                 </div>
                 <div class="form-group">
-                    <label id="lng-st-name">ຊື່ພະນັກງານ (Name)</label>
+                    <label id="lng-st-name">... </label>
                     <input type="text" id="newStaffName" class="form-control" placeholder="...">
                 </div>
                 <div class="form-group">
-                    <label id="lng-st-pass">ລະຫັດຜ່ານ (Password)</label>
+                    <label id="lng-st-pass">... </label>
                     <input type="text" id="newStaffPass" class="form-control" placeholder="...">
                 </div>
                 <div class="form-group">
-                    <label id="lng-st-role">ຕຳແໜ່ງສິດ</label>
+                    <label id="lng-st-role">... </label>
                     <select id="newStaffRole" class="form-control">
                         <option value="staff">ພະນັກງານທົ່ວໄປ (Staff)</option>
                         <option value="admin">👑 ຜູ້ຈັດການຮ້ານ (Admin)</option>
                     </select>
                 </div>
-                <button class="btn" style="background: #40a759;" id="lng-btn-save-st" onclick="addNewStaff()">➕ ບັນທຶກພະນັກງານ</button>
+                <button class="btn" style="background: #40a759;" id="lng-btn-save-st" onclick="addNewStaff()">➕ ... </button>
             </div>
 
-            <h3 style="font-weight: 600; margin-bottom: 10px;" id="lng-staff-list-title">ລາຍຊື່ພະນັກງານປະຈຸບັນໃນລະບົບ</h3>
-            <div class="table-container" style="padding:0;">
-                <table id="staffTable">
-                    <thead>
-                        <tr>
-                            <th id="th-st-user">ລະຫັດພະນັກງານ (Username)</th>
-                            <th id="th-st-name">ຊື່ພະນັກງານ (Name)</th>
-                            <th id="th-st-pass">ລະຫັດຜ່ານ (Password)</th>
-                            <th id="th-st-role">ຕຳແໜ່ງສິດ</th>
-                            <th id="th-st-manage">ການຈັດການ</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+            <h3 style="font-weight: 600; margin-bottom: 10px;" id="lng-staff-list-title">... </h3>
+            <table id="staffTable">
+                <thead>
+                    <tr>
+                        <th id="th-st-user">... </th>
+                        <th id="th-st-name">... </th>
+                        <th id="th-st-pass">... </th>
+                        <th id="th-st-role">... </th>
+                        <th id="th-st-manage">... </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
 
@@ -675,18 +732,18 @@
 
     <div id="cashModal" class="modal">
         <div class="modal-content">
-            <h3 class="modal-title" id="lng-cash-title">💵 ຊຳລະເງິນດ້ວຍເງິນສົດ</h3>
+            <h3 class="modal-title" id="lng-cash-title">... </h3>
             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
-                <span style="color: #6c757d; font-size: 0.9rem;" id="lng-cash-total-lbl">ຍອດລວມທີ່ຕ້ອງຊຳລະ</span>
+                <span style="color: #6c757d; font-size: 0.9rem;" id="lng-cash-total-lbl">... </span>
                 <h2 id="cashModalTotal" class="en-text" style="font-weight: 700; color: #333; margin-top:5px;">0 LAK</h2>
             </div>
             <div class="form-group">
-                <label id="lng-cash-receive-lbl">ຈຳນວນເງິນທີ່ຮັບມາ (ກີບ)</label>
+                <label id="lng-cash-receive-lbl">... </label>
                 <input type="number" id="cashReceived" class="form-control en-text" placeholder="0">
             </div>
             <div style="display:flex; gap:10px; margin-top:20px;">
-                <button class="btn" style="background:#e0e0e0; color:#333;" id="lng-cash-cancel" onclick="closeModal('cashModal')">ຍົກເລີກ</button>
-                <button class="btn btn-cash" id="lng-cash-confirm" onclick="submitCashPayment()">ຊຳລະເງິນ</button>
+                <button class="btn" style="background:#e0e0e0; color:#333;" id="lng-cash-cancel" onclick="closeModal('cashModal')">... </button>
+                <button class="btn btn-cash" id="lng-cash-confirm" onclick="submitCashPayment()">... </button>
             </div>
         </div>
     </div>
@@ -695,43 +752,64 @@
         <div class="receipt-popup-content">
             <div class="receipt-header-centered">
                 <div class="receipt-title">✨ SALON CAFE ✨</div>
-                <div class="receipt-subtitle">--- BOUNMA SHOP STYLE ---</div>
-                <div class="receipt-type-text" id="lblReceiptTypeTitle">ໃບບິນ / Receipt</div>
+                <div class="receipt-subtitle">BOUNMA SHOP STYLE</div>
+                <div class="receipt-type-text" id="lblReceiptTypeTitle">RECEIPT</div>
             </div>
+            
             <div class="receipt-divider"></div>
             
-            <div class="receipt-info-line">ເລກບິນ / Bill ID: <b id="pBillId" class="en-text">INV-00000</b></div>
-            <div class="receipt-info-line">ວັນທີ / Date: <span id="pBillDate" class="en-text">00/00/0000</span></div>
-            <div class="receipt-info-line">ເວລາ / Time: <span id="pBillTime" class="en-text">00:00:00</span></div>
-            <div class="receipt-info-line">ຜູ້ຂາຍ / Cashier: <span id="pBillCashier">-</span></div>
+            <div class="receipt-meta-box">
+                <div class="receipt-meta-row">
+                    <span>ເລກບິນ / Bill ID:</span>
+                    <b id="pBillId" class="en-text">INV-00000</b>
+                </div>
+                <div class="receipt-meta-row">
+                    <span>ວັນທີ / Date:</span>
+                    <span id="pBillDate" class="en-text">--/--/----</span>
+                </div>
+                <div class="receipt-meta-row">
+                    <span>ເວລາ / Time:</span>
+                    <span id="pBillTime" class="en-text">--:--:--</span>
+                </div>
+                <div class="receipt-meta-row">
+                    <span>ຜູ້ຂາຍ / Cashier:</span>
+                    <span id="pBillCashier">-</span>
+                </div>
+            </div>
+            
             <div class="receipt-divider"></div>
             
-            <div id="pBillItemsContainer"></div>
+            <div class="receipt-items-list" id="pBillItemsContainer"></div>
+            
             <div class="receipt-divider"></div>
             
-            <div class="receipt-total-bold">ຍອດລວມ / Total: <span id="pBillTotal" class="en-text">0</span> <span id="pBillCurrency">ກີບ</span></div>
-            <div id="pBillPaymentDetails"></div>
+            <div class="receipt-summary-box">
+                <div class="receipt-summary-row total-bold">
+                    <span>ຍອດລວມ / TOTAL:</span>
+                    <span><span id="pBillTotal" class="en-text">0</span> <span id="pBillCurrency">ກີບ</span></span>
+                </div>
+                <div id="pBillPaymentDetails"></div>
+            </div>
+            
             <div class="receipt-divider"></div>
             
-            <div class="receipt-header-centered">
-                <div style="font-weight: 500; font-size: 0.95rem; margin-top: 5px;">ຂອບໃຈທີ່ມາອຸດໜູນ</div>
-                <div style="font-family: var(--font-en); font-size: 0.9rem; color: #495057;">Thank You!</div>
+            <div class="receipt-footer">
+                <p style="font-weight: 500; letter-spacing: 0.5px;">ຂອບໃຈທີ່ມາອຸດໜູນ</p>
+                <p style="font-family: var(--font-en); font-size: 0.78rem; color: #777; margin-top: 2px;">THANK YOU VERY MUCH</p>
             </div>
 
-            <div class="receipt-action-buttons" style="display: flex; gap: 10px; margin-top: 25px;">
-                <button class="btn" style="background:#6c757d;" onclick="closeModal('receiptPrintModal')">ປິດໜ້າຕ່າງ (Close)</button>
-                <button class="btn" style="background:#40a759;" onclick="window.print()">🖨️ ສັ່ງປຣິ່ນບິນ (Print)</button>
+            <div class="receipt-action-buttons">
+                <button class="btn" style="background:#6c757d; width: 45%;" onclick="closeModal('receiptPrintModal')">ປິດ (Close)</button>
+                <button class="btn" style="background:#40a759; width: 55%;" onclick="window.print()">🖨️ ປຣິ່ນບິນ (Print)</button>
             </div>
         </div>
     </div>
 
     <script>
         let currentLang = 'lo'; 
-        
-        // ຖານຂໍ້ມູນພາສາ (Language Packs)
         const langPack = {
             lo: {
-                loginSub: "ລະບົບຈັດການຮ້ານຄາເຟ່ແບບມິນິມອນ", loginUser: "ຊື່ຜູ້ໃຊ້ / ລະຫັດພະນັກງານ (Username)",
+                loginSub: "... ", loginUser: "ຊື່ຜູ້ໃຊ້ / ລະຫັດພະນັກງານ (Username)",
                 loginPass: "ລະຫັດຜ່ານ (Password)", loginBtn: "ເຂົ້າສູ່ລະບົບ", logoutBtn: "ອອກຈາກລະບົບ",
                 userBadge: "ຜູ້ລົງທະບຽນເຂົ້າໃຊ້: ", adminBtn: "ແດຊບອດຜູ້ຈັດการ", tabDrinks: "ເມນູເຄື່ອງດື່ມ",
                 tabDesserts: "ເມນູຂະໜົມຫວານ", cartTitle: "ລາຍການອໍເດີ້ໃນບິນ", cartTotal: "ຍອດລວມ: ",
@@ -739,13 +817,13 @@
                 adminTitle: "📊 ແຜງຄວບຄຸມຜູ້ຈັດການ (Admin)", adminSub: "ກວດສອບຍອດຂາຍ ແລະ ຈັດການຂໍ້ມູນຮ້ານ",
                 tabRep: "ສະຫຼຸບຍອດຂາຍແລະປະຫວັດບິນ", tabSt: "👥 ຈັດການລາຍຊື່ແລະລະຫັດພະນັກງານ",
                 cDay: "ສະຫຼຸບຍອດເງິນລາຍວັນ", cWeek: "ສະຫຼຸບຍອດເງິນລາຍອາທິດ", cMonth: "ສະຫຼຸບຍອດເງິນລາຍເດືອນ",
-                tHistTitle: "ປະຫວັດການບັນທຶກຂໍ້ມູນການຂາຍ", thId: "ເລກທີບິນ", thTime: "ເວລາ", thMenu: "ລາຍການເມນູ",
-                thTotal: "ລາຄະລວມ", thRec: "ຮັບເງິນ/ທອນ", thMeth: "ຊ່ອງທາງ", thStat: "ສະຖານະ", thMng: "ການຈັດການ",
+                tHistTitle: "ປະຫວັດການບັນທຶກຂໍ້ມູນการຂາຍ", thId: "ເລກທີບິນ", thTime: "ເວລາ", thMenu: "ລາຍການເມນູ",
+                thTotal: "ລາຄະລວມ", thRec: "ຮັບເງິນ/ທອນ", thMeth: "ຊ່ອງທາງ", thStat: "ສະຖານະ", thMng: "การຈັດການ",
                 addStTitle: "ເພີ່ມພະນັກງານຄົນໃໝ່ເຂົ້າລະບົບ", stUser: "ລະຫັດພະນັກງານ (Username)",
                 stName: "ຊື່ພະນັກງານ (Name)", stPass: "ລະຫັດຜ່ານ (Password)", stRole: "ຕຳແໜ່ງສິດ",
-                btnSaveSt: "➕ ບັນທຶກພະນັກງານ", stListTitle: "ລາຍຊື່ພະນັກງານປະຈຸບັນໃນລະບົບ",
+                btnSaveSt: "➕ ບັນທຶກພະນັກງານ", stListTitle: "... ",
                 mdType: "ປະເພດເຄື່ອງດື່ມ", mdSweet: "ລະດັບຄວາມຫວານ", mdWhip: "ວິບຄຣີມ (Whipped Cream)", mdQty: "ຈຳນວນ (Quantity)", mdCancel: "ຍົກເລີກ", mdConfirm: "ເພີ່ມລົງບິນ",
-                cashTitle: "💵 ຊຳລະເງິນດ້ວຍເງິນສົດ", cashTotLbl: "ຍອດລວມທີ່ຕ້ອງຊຳລະ", cashRecLbl: "ຈຳນວນເງິນທີ່ຮັບມາ (ກີບ)",
+                cashTitle: "💵 ຊຳລະເງິນດ້ວຍເງິນສົດ", cashTotLbl: "ຍອດລວມທີ່ຕ້ອງຊຳລະ", cashRecLbl: "ຈຳນວນεງິນທີ່ຮັບມາ (ກີບ)",
                 currency: "ກີບ", 
                 optIce: "ເຢັນ (+0 ກີບ)", optFrp5: "ປັ່ນ (+5,000 ກີບ)", optFrp10: "ປັ່ນ (+10,000 ກີບ)", optHot: "ຮ້ອນ (+0 ກີບ)",
                 swNormal: "ຫວານປົກກະຕິ (100%)", swLess: "ຫວານໜ້ອຍ (50%)", swNone: "ບໍ່ຫວານເລີຍ (0%)", swMore: "ຫວານຫຼາຍ (120%)",
@@ -778,17 +856,15 @@
             }
         };
 
-        // ຂໍ້ມູນເມນູເຄື່ອງດື່ມ (Drinks)
         const drinksData = [
             { id: 1, name_lo: "ເອສເປຣສໂຊ່", name_en: "Espresso", price: 25000, icon: "☕" },
             { id: 2, name_lo: "ຊາຂຽວມັດຊະ", name_en: "Matcha Green Tea", price: 28000, icon: "🍵" },
             { id: 3, name_lo: "ຊານົມໄຕ້ຫວັນ", name_en: "Taiwan Milk Tea", price: 22000, icon: "🧋" },
             { id: 4, name_lo: "ໂກໂກ້ລາເຕ້", name_en: "Cocoa Latte", price: 25000, icon: "🍫" },
             { id: 5, name_lo: "ນົມສົດຄາຣາເມລ", name_en: "Caramel Fresh Milk", price: 28000, icon: "🥛" },
-            { id: 6, name_lo: "ສະຕໍເບີຣີ່ໂຊດາ", name_en: "Strawberry Soda", price: 20000, icon: "🍓" }
+            { id: 6, name_lo: "ສະຕໍເບີຣີ່ໂໂຊດາ", name_en: "Strawberry Soda", price: 20000, icon: "🍓" }
         ];
 
-        // ຂໍ້ມູນເມນູຂະໜົມຫວານ (Desserts)
         const dessertsData = [
             { id: 7, name_lo: "ຮັນນີ່ໂທດສ໌", name_en: "Honey Toast", price: 45000, icon: "🍞" },
             { id: 8, name_lo: "ຄຣັອບເຟິລນົມສົດ", name_en: "Fresh Milk Croffle", price: 22000, icon: "🧇" },
@@ -796,15 +872,14 @@
             { id: 10, name_lo: "ບິງຊູຊາໄທ", name_en: "Thai Tea Bingsu", price: 55000, icon: "🍧" }
         ];
 
-        // ລາຍຊື່ບັນຊີຜູ້ໃຊ້ເລີ່ມຕົ້ນ (Default Staff)
         const defaultStaffList = [
-            { username: "admin01", name: "Sit", pass: "230506", role: "admin" },
-            { username: "staff01", name: "Bie", pass: "1234", role: "staff" },
-            { username: "staff01", name: "Hat", pass: "2222", role: "staff" }
+            { username: "admin01", name: "Chid (Owner)", pass: "1234", role: "admin" },
+            { username: "staff01", name: "Souphaphone", pass: "1111", role: "staff" },
+            { username: "sit", name: "Sit", pass: "2222", role: "staff" }
         ];
 
-        let staffList = JSON.parse(localStorage.getItem('salon_cafe_users_v2')) || defaultStaffList;
-        if(!localStorage.getItem('salon_cafe_users_v2s')) localStorage.setItem('salon_cafe_users_v2', JSON.stringify(staffList));
+        let staffList = JSON.parse(localStorage.getItem('salon_cafe_users')) || defaultStaffList;
+        if(!localStorage.getItem('salon_cafe_users')) localStorage.setItem('salon_cafe_users', JSON.stringify(staffList));
 
         let currentUser = null;
         let cart = [];
@@ -816,9 +891,8 @@
         let selectedDessert = null;
         let modalDessertQty = 1;
 
-        let salesHistory = JSON.parse(localStorage.getItem('salon_cafe_users_v2')) || [];
+        let salesHistory = JSON.parse(localStorage.getItem('salon_cafe_sales')) || [];
 
-        // ຟັງຊັນປ່ຽນພາສາ ແລະ ສະແດງຜົນຂໍ້ຄວາມໃນລະບົບ
         function applyLanguage() {
             const p = langPack[currentLang];
             document.getElementById('lng-login-sub').innerText = p.loginSub;
@@ -892,7 +966,6 @@
             if(pageId === 'adminPage') switchAdminSubTab('report');
         }
 
-        // ລະບົບກວດສອບການເຂົ້າສູ່ລະບົບ
         function handleLogin() {
             const userIn = document.getElementById('username').value.trim();
             const passIn = document.getElementById('password').value.trim();
@@ -942,7 +1015,6 @@
             }
         }
 
-        // ສະແດງຜົນລາຍການເມນູສິນຄ້າທັງໝົດ
         function renderMenus() {
             const suffix = langPack[currentLang].currency;
             document.getElementById('drinksGrid').innerHTML = drinksData.map(item => `
@@ -962,7 +1034,6 @@
             `).join('');
         }
 
-        // ຈັດການປ໊ອບອັບເຄື່ອງດື່ມ
         function openDrinkModal(id) {
             selectedDrink = drinksData.find(d => d.id === id);
             const p = langPack[currentLang];
@@ -1026,7 +1097,6 @@
             closeModal('drinkModal');
         }
 
-        // ຈັດການປ໊ອບອັບຂະໜົມຫວານ
         function openDessertModal(id) {
             selectedDessert = dessertsData.find(d => d.id === id);
             modalDessertQty = 1;
@@ -1053,7 +1123,6 @@
             closeModal('dessertModal');
         }
 
-        // ອັບເດດລາຍການໃນຕະກ້າ
         function updateCartUI() {
             const p = langPack[currentLang];
             document.getElementById('cartList').innerHTML = cart.map((item, index) => `
@@ -1097,7 +1166,7 @@
             processCheckout('Cash', received, change);
         }
 
-        // 🧾 ລະບົບການອອກໃບບິນ ແລະ ຈັດຕຳແໜ່ງ (Print Billing Logic)
+        /* 🧾 ປັບປຸງການສະແດງຜົນໂຄງສ້າງໃບບິນໃໝ່ໃຫ້ເປັນລະບຽບ ແລະ ສວຍງາມ */
         function processCheckout(method, received = 0, change = 0) {
             if(cart.length === 0) return;
             const billId = "INV-" + Math.floor(Math.random() * 90000 + 10000);
@@ -1110,6 +1179,7 @@
             const suffix = langPack[currentLang].currency;
             const cashierName = currentUser ? currentUser.name : "Sit";
 
+            // 1. ບັນທຶກລົງຖານຂໍ້ມູນທັນທີ
             const newBill = {
                 id: billId, time: timeStr, details: menuDetails, price: total,
                 method: method, received: received, change: change, status: "SUCCESS"
@@ -1117,47 +1187,67 @@
             salesHistory.push(newBill);
             localStorage.setItem('salon_cafe_sales', JSON.stringify(salesHistory));
 
+            // 2. Mapping ຂໍ້ມູນໃສ່ HTML ໃບບິນແບບໃໝ່
             document.getElementById('pBillId').innerText = billId;
             document.getElementById('pBillDate').innerText = dateStr;
             document.getElementById('pBillTime').innerText = timeStr;
             document.getElementById('pBillCashier').innerText = cashierName;
             document.getElementById('pBillTotal').innerText = total.toLocaleString();
             document.getElementById('pBillCurrency').innerText = suffix;
+            document.getElementById('lblReceiptTypeTitle').innerHTML = `ໃບບິນຮັບເງິນ / RECEIPT`;
 
-            document.getElementById('lblReceiptTypeTitle').innerHTML = `ໃບບິນ / Receipt`;
-
-            // ບັງຄັບໃຫ້ລາຍການເມນູຢູ່ດ້ານຊ້າຍ (Left-aligned)
+            // ຈັດການລາຍການສິນຄ້າໃຫ້ເປັນແຖວລະບຽບ ຊ້າຍ-ຂວາ
             let itemsHtml = "";
-            cart.forEach((item, index) => {
+            cart.forEach((item) => {
                 itemsHtml += `
-                    <div class="receipt-item-line">${index + 1}. ${item.name}</div>
-                    <div class="receipt-item-price">x${item.qty} @${item.singlePrice.toLocaleString()} = ${item.price.toLocaleString()} ${suffix}</div>
+                    <div class="receipt-item-row">
+                        <div class="receipt-item-name">
+                            <div><b>${item.name}</b></div>
+                            <div style="font-size:0.78rem; color:#666;" class="en-text">x${item.qty} @${item.singlePrice.toLocaleString()}</div>
+                        </div>
+                        <div class="receipt-item-qty-price en-text">
+                            ${item.price.toLocaleString()}
+                        </div>
+                    </div>
                 `;
             });
             document.getElementById('pBillItemsContainer').innerHTML = itemsHtml;
 
-            // ບັງຄັບໃຫ້ສ່ວນການສະຫຼຸບເງິນຢູ່ດ້ານຂວາ (Right-aligned)
+            // ຈັດການລາຍລະອຽດການຮັບເງິນທອນ
             let paymentDetailsHtml = "";
             if (method === 'Cash') {
                 paymentDetailsHtml = `
-                    <div class="receipt-money-right">ຮັບເງິນ / Received: <span class="en-text">${received.toLocaleString()}</span> ${suffix}</div>
-                    <div class="receipt-money-right">ເງິນທອນ / Change: <span class="en-text">${change.toLocaleString()}</span> ${suffix}</div>
+                    <div class="receipt-summary-row">
+                        <span>ຮັບເງິນສົດ / CASH:</span>
+                        <span class="en-text">${received.toLocaleString()}</span>
+                    </div>
+                    <div class="receipt-summary-row">
+                        <span>ເງິນທອນ / CHANGE:</span>
+                        <span class="en-text">${change.toLocaleString()}</span>
+                    </div>
                 `;
             } else {
-                paymentDetailsHtml = `<div class="receipt-money-right">ຊຳລະຜ່ານ / Method: <span class="en-text">QR Code</span></div>`;
+                paymentDetailsHtml = `
+                    <div class="receipt-summary-row">
+                        <span>ຊຳລະຜ່ານ / METHOD:</span>
+                        <span class="en-text" style="font-weight:600;">QR CODE (PAID)</span>
+                    </div>
+                `;
             }
             document.getElementById('pBillPaymentDetails').innerHTML = paymentDetailsHtml;
 
+            // 3. ລ້າງຕູ້ກະຕ່າອໍເດີ້
             clearCart();
+            
+            // 4. ສະແດງ Pop-up ໃບບິນ
             document.getElementById('receiptPrintModal').style.display = 'flex';
 
-            // ສັ່ງປຣິ່ນບິນອັດຕະໂນມັດ
+            // 5. ເປີດລະບົບປຣິ່ນອັດຕະໂນມັດ
             setTimeout(() => {
                 window.print();
             }, 300);
         }
 
-        // ອັບເດດລາຍງານໃນໜ້າ Admin
         function updateAdminDashboard() {
             const suffix = langPack[currentLang].currency;
             const activeSales = salesHistory.filter(b => b.status === "SUCCESS");
@@ -1203,7 +1293,6 @@
             }
         }
 
-        // ຈັດການສະແດງຜົນຕາຕະລາງລາຍຊື່ພະນັກງານ
         function renderStaffTable() {
             const tbody = document.querySelector('#staffTable tbody');
             const p = langPack[currentLang];
@@ -1274,7 +1363,6 @@
             }
         }
 
-        // ໃຫ້ລະບົບເລີ່ມຕົ້ນເຮັດວຽກທັນທີເມື່ອເປີດໜ້າເວັບ
         applyLanguage();
     </script>
 </body>
